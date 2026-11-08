@@ -1,0 +1,201 @@
+{
+  "status": "PASS_EXACT_ARITHMETIC_AND_FINITE_PROJECTION_CHECKS",
+  "source_pdf_sha256": "fc77c1b9e5786918c701b10b8d27af1397a1713f586419c4c25b7f12a83c661f",
+  "inputs_sha256": {
+    "data/optional_lp_dual.json": "85c7edcb326129fbef7790c9049238abd0aa030d290c179abe694b3d8759ccec",
+    "data/pool_factors.json": "053beef7d1964bdf1438c4ed3262980693d85eeb7606ef4284aa35ff8ef2aac1"
+  },
+  "verifier_sha256": "975db431feabc44e9607b4464d4ce5ce0eb17d4472bf26f4b9543dfcb0494a2c",
+  "N": 12252240,
+  "distinct_proven_primes": 192,
+  "max_prime": 8168161,
+  "factor_product_bits": 2432,
+  "factor_product_exact_decimal_digits": 732,
+  "bound": "3961943/4084080",
+  "gap": "122137/4084080",
+  "divisors_checked": 480,
+  "table": [
+    [
+      1,
+      "1",
+      "319967/556920",
+      7039274
+    ],
+    [
+      2,
+      "1/2",
+      "53617/291720",
+      2251914
+    ],
+    [
+      3,
+      "1/2",
+      "120079/2042040",
+      1080711
+    ],
+    [
+      4,
+      "1/2",
+      "91723/4084080",
+      550338
+    ],
+    [
+      5,
+      "1/5",
+      "92789/2450448",
+      463945
+    ],
+    [
+      6,
+      "1/4",
+      "10343/875160",
+      217203
+    ],
+    [
+      10,
+      "1/10",
+      "16/36465",
+      5376
+    ],
+    [
+      12,
+      "1/4",
+      "181/32760",
+      203082
+    ],
+    [
+      15,
+      "1/10",
+      "61/16380",
+      68442
+    ],
+    [
+      20,
+      "1/10",
+      "1/4420",
+      5544
+    ]
+  ],
+  "dual": {
+    "nonzero_entries": 25,
+    "budget_inequalities": 10,
+    "support_inequalities": 30,
+    "budget_slack": {
+      "1": "0",
+      "2": "0",
+      "5": "0",
+      "3": "0",
+      "4": "0",
+      "6": "0",
+      "12": "0",
+      "15": "0",
+      "10": "0",
+      "20": "0"
+    },
+    "support_slack": {
+      "1": "0",
+      "2": "0",
+      "5": "0",
+      "7": "0",
+      "10": "0",
+      "11": "0",
+      "13": "0",
+      "14": "0",
+      "17": "0",
+      "19": "0",
+      "22": "0",
+      "23": "0",
+      "25": "0",
+      "26": "0",
+      "29": "0",
+      "31": "0",
+      "34": "0",
+      "35": "0",
+      "37": "0",
+      "38": "0",
+      "41": "0",
+      "43": "0",
+      "46": "0",
+      "47": "0",
+      "49": "0",
+      "50": "0",
+      "53": "0",
+      "55": "0",
+      "58": "0",
+      "59": "0"
+    }
+  },
+  "projection": {
+    "representatives": [
+      {
+        "prime": 5,
+        "e": 4,
+        "d": 4,
+        "direct_modular_pairs": 60
+      },
+      {
+        "prime": 7,
+        "e": 6,
+        "d": 3,
+        "direct_modular_pairs": 120
+      },
+      {
+        "prime": 11,
+        "e": 10,
+        "d": 1,
+        "direct_modular_pairs": 600
+      },
+      {
+        "prime": 19,
+        "e": 18,
+        "d": 2,
+        "direct_modular_pairs": 540
+      },
+      {
+        "prime": 31,
+        "e": 30,
+        "d": 5,
+        "direct_modular_pairs": 360
+      },
+      {
+        "prime": 241,
+        "e": 120,
+        "d": 6,
+        "direct_modular_pairs": 1200
+      },
+      {
+        "prime": 2861,
+        "e": 2860,
+        "d": 10,
+        "direct_modular_pairs": 17160
+      },
+      {
+        "prime": 409,
+        "e": 204,
+        "d": 12,
+        "direct_modular_pairs": 1020
+      },
+      {
+        "prime": 421,
+        "e": 420,
+        "d": 15,
+        "direct_modular_pairs": 1680
+      },
+      {
+        "prime": 4421,
+        "e": 4420,
+        "d": 20,
+        "direct_modular_pairs": 13260
+      }
+    ],
+    "normalization_pairs": 12,
+    "wrong_projection_negative_control": "REJECTED"
+  },
+  "negative_controls": {
+    "deleted_dual_mass": "REJECTED"
+  },
+  "gcd_completeness": "REQUIRES_SEPARATE_DIRECT_GCD_CHECK",
+  "elapsed_seconds": 0.8860486559999998,
+  "cpu_seconds": 0.885855541,
+  "model_api_calls": 0
+}

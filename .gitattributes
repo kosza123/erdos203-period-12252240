@@ -1,0 +1,4 @@
+# normalise text to LF, but keep the article and the data files byte-exact (their SHA-256 values are published)
+* text=auto eol=lf
+*.pdf binary
+data/* -text

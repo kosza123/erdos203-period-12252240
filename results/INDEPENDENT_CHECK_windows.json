@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "scope": "complete",
+  "gmp_backend": "GMP via ctypes",
+  "B": "3961943/4084080",
+  "checks": {
+    "N = lcm(1..17)": {
+      "pass": true,
+      "detail": 12252240
+    },
+    "pool primes up to 3e7: 192, largest 8168161": {
+      "pass": true,
+      "detail": "192 primes, largest 8168161"
+    },
+    "G_N has 2432 bits and 732 decimal digits": {
+      "pass": true,
+      "detail": [
+        2432,
+        732
+      ]
+    },
+    "2^N = 3^N = 1 mod G_N": {
+      "pass": true,
+      "detail": ""
+    },
+    "every pool prime divides G_N": {
+      "pass": true,
+      "detail": ""
+    },
+    "cofactor of G_N after the pool primes is 1 (pool complete)": {
+      "pass": true,
+      "detail": 1
+    },
+    "control: dropping the largest pool prime leaves cofactor 8168161": {
+      "pass": true,
+      "detail": 8168161
+    },
+    "valuation 2 exactly for 5, 7, 11, 13, 17": {
+      "pass": true,
+      "detail": ""
+    },
+    "e_p | N and ord_p(6) | e_p for all pool primes": {
+      "pass": true,
+      "detail": ""
+    },
+    "p=5: e=4, i=4, d=4; p=7: e=6, h=2, i=3, d=3": {
+      "pass": true,
+      "detail": ""
+    },
+    "weights: nonnegative, sum 1, avoid 0 mod 3 and 0 mod 4": {
+      "pass": true,
+      "detail": ""
+    },
+    "weights equal those in data/optional_lp_dual.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "Table 1 of the article (mu_d, R_d, N d mu_d R_d) reproduced exactly": {
+      "pass": true,
+      "detail": ""
+    },
+    "B = 3961943/4084080 < 1": {
+      "pass": true,
+      "detail": "3961943/4084080 = 0.970094, gap 122137/4084080"
+    },
+    "normalised 5 (a_5 = 0 mod 4) and 7 (a_7 = 0 mod 3) contribute 0": {
+      "pass": true,
+      "detail": [
+        "0",
+        "0"
+      ]
+    },
+    "control: uniform weights on the 30 admissible classes do NOT give B < 1 for this pool": {
+      "pass": true,
+      "detail": "1557209/1531530 = 1.0168"
+    },
+    "Lemma 1 by brute force for all cosets of the 38 pool primes with e_p <= 260": {
+      "pass": true,
+      "detail": ""
+    },
+    "480 divisors of N, each with bound <= B < 1": {
+      "pass": true,
+      "detail": "max bound 3961943/4084080"
+    },
+    "Appendix A equals data/optional_lp_dual.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "dual feasible: q >= 0, budgets sum_c q_dc <= d R_d, all 30 inequalities >= B": {
+      "pass": true,
+      "detail": ""
+    }
+  },
+  "elapsed_seconds": 15.1
+}

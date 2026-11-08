@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this result, please cite it as below."
+title: "Erdős Problem #203: no pure finite prime covering with period dividing lcm(1,...,17) = 12,252,240"
+abstract: "A partial result on Erdős Problem #203: no pure finite prime covering has period dividing N = lcm(1,...,17) = 12,252,240. The complete prime pool of gcd(2^N-1, 3^N-1) has 192 primes. Using the slope-one line method and 5/7 cut of Erdős Problem a Day (P. White and Claude, 14 October 2026), explicit non-uniform weights modulo 60 give the exact bound 3961943/4084080 < 1. Of the 480 divisors of N, 411 had already been excluded by that earlier work; the 69 new periods are listed with a script that reproduces the list. Includes the research draft, the certificate data, three verifiers and the verification record. The full problem remains open; not peer reviewed."
+type: dataset
+authors:
+  - family-names: Majchrzak
+    given-names: Filip
+    affiliation: "Independent researcher, Poland"
+date-released: 2026-11-08
+version: "1.0.0"
+license: CC-BY-4.0
+repository-code: "https://github.com/kosza123/erdos203-period-12252240"
+keywords:
+  - Erdős problems
+  - Erdős Problem 203
+  - covering systems
+  - multiplicative orders
+  - computational number theory
+  - exact certificate
+references:
+  - type: blog
+    title: "Erdős #203: along the lines of slope 1 the primes 5 and 7 leave half the lines to the rest of the pool"
+    authors:
+      - name: "Erdős Problem a Day (Patrick White and Claude)"
+    date-published: 2026-10-14
+    url: "https://erdosproblemaday.com/day/203-the-quotient-lemma-lines-close-the-open-pools"
+  - type: website
+    title: "Erdős Problem #203"
+    authors:
+      - family-names: Bloom
+        given-names: Thomas F.
+    url: "https://www.erdosproblems.com/203"
+  - type: website
+    title: "Erdős Problem #203 discussion thread (contributions by AnimishSharma, 21 June 2026, and veljjanoski, 15 September 2026)"
+    authors:
+      - name: "erdosproblems.com forum contributors"
+    url: "https://www.erdosproblems.com/forum/thread/203"

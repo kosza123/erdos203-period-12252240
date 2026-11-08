@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "N": 12252240,
+  "checks": {
+    "gcd_equals_factor_product": true,
+    "gcd_equals_G_N_decimal_txt": true,
+    "control_dropped_prime_rejected": true,
+    "control_raised_valuation_rejected": true,
+    "control_changed_digit_rejected": true
+  },
+  "distinct_primes_in_list": 192,
+  "largest_prime": 8168161,
+  "gcd_bits": 2432,
+  "gcd_exact_decimal_digits": 732,
+  "gcd_decimal_sha256": "1befdff4d20ed0ab7e5371250ba9408e735c966de9fee71131dd2caae0b7daa5",
+  "factor_file_sha256": "053beef7d1964bdf1438c4ed3262980693d85eeb7606ef4284aa35ff8ef2aac1",
+  "backend": "GMP 6.3.0 via ctypes (C:\\Program Files\\Git\\mingw64\\bin\\libgmp-10.dll)",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "elapsed_seconds": 1.814
+}
