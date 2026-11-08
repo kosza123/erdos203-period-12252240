@@ -216,7 +216,7 @@ If you use this result, please cite the archived record:
 > 12,252,240* (Version 1.1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24050485
 
 The DOI above always resolves to the latest version; version 1.0.0 specifically is https://doi.org/10.5281/zenodo.24050486,
-and each later version has its own version DOI on the Zenodo record.
+and version 1.1.0 is https://doi.org/10.5281/zenodo.24051979.
 GitHub's "Cite this repository" uses `CITATION.cff`.
 
 ## License

@@ -18,6 +18,9 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.24050486
     description: "Zenodo DOI of version 1.0.0"
+  - type: doi
+    value: 10.5281/zenodo.24051979
+    description: "Zenodo DOI of version 1.1.0"
 repository-code: "https://github.com/kosza123/erdos203-period-12252240"
 keywords:
   - Erdős problems
