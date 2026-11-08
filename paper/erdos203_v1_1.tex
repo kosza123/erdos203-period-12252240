@@ -1,0 +1,279 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,tabularx,array,multicol}
+\usepackage[margin=25mm,headheight=15pt]{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!40!black,urlcolor=blue!45!black,citecolor=blue!40!black,pdftitle={Exclusion of a finite prime-covering period in Erdos problem 203 (v1.1)},pdfauthor={Filip Majchrzak}}
+\definecolor{ink}{HTML}{183049}
+\definecolor{accent}{HTML}{176E86}
+\definecolor{muted}{HTML}{6F7F8C}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\color{muted} Erd\H{o}s Problem \#203 --- finite-period obstruction}
+\fancyhead[R]{\footnotesize\color{muted} Research draft v1.1}
+\fancyfoot[C]{\footnotesize\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\PN}{\mathcal P_N}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+\setlist{topsep=3pt,itemsep=2pt}
+
+\begin{document}
+\begin{center}
+{\color{ink}\LARGE\bfseries Exclusion of a finite prime-covering period\par}
+\vspace{0.17em}
+{\color{ink}\LARGE\bfseries in Erd\H{o}s Problem \#203}\par
+\vspace{0.65em}
+{\large Filip Majchrzak}\par
+{\small Independent researcher, Poland}\par
+\vspace{0.4em}
+{\color{accent}\small Research draft v1.1 --- 8 November 2026 --- not submitted or peer reviewed}\par
+{\small\color{muted} (v1.0: 1 November 2026; changes listed before the references)}\par
+\end{center}
+
+\begin{abstract}
+Erd\H{o}s Problem \#203 asks whether some positive integer $m$, coprime to $6$, makes every $2^k3^\ell m+1$ composite for $k,\ell\ge 0$. We rule out a specific finite-prime-covering approach: no \emph{pure} covering by prime-divisibility cosets has covering period dividing $N=\lcm(1,\ldots,17)=12\,252\,240$. A complete computation of the relevant prime pool gives 192 distinct primes. Combining the known slope-one line-projection method with explicitly specified nonnegative weights on residue classes modulo $60$ yields the exact upper bound
+$3\,961\,943/4\,084\,080<1$, contradicting the intensity required by a covering. The result extends immediately to all $480$ divisors of $N$ by inclusion of prime pools; $411$ of these periods were excluded in earlier work, and to our knowledge the other $69$ had not been excluded before. Exact-arithmetic verifiers, including a GMP recomputation of the 2,432-bit pool gcd, are publicly archived, and the pool and the bound have been reproduced by Erd\H{o}s Problem a Day, a separate project (private communication). A rational linear-programming dual certificate additionally proves optimality of the weights \emph{within this fixed cut and modulus}. The full Erd\H{o}s problem remains open.
+\end{abstract}
+
+\noindent\textbf{Keywords:} covering systems; multiplicative orders; finite cyclic groups; line projection; computational number theory; exact certificates.
+
+\section{Problem and precise scope}
+Erd\H{o}s and Graham asked whether there is an integer $m\ge1$ with $\gcd(m,6)=1$ such that
+\begin{equation}\label{eq:erdos}
+  2^k3^\ell m+1\text{ is composite for every } k,\ell\ge0.
+\end{equation}
+This is Erd\H{o}s Problem \#203 \cite{ErdosGraham,Bloom203}; the unrestricted problem remains open. We consider only the \emph{pure finite prime-covering} route, with no additional algebraic factorisations from special choices of $m$.
+
+For each prime $p>3$, define
+\begin{equation}\label{eq:group}
+  H_p=\langle 2,3\rangle\subseteq\mathbb F_p^\times,\qquad
+  e_p=|H_p|=\lcm\bigl(\ord_p(2),\ord_p(3)\bigr),
+\end{equation}
+and the homomorphism $\phi_p:\Z^2\to H_p$, $(k,\ell)\mapsto2^k3^\ell$. Its kernel $L_p$ has index $e_p$. If $p$ divides some $2^k3^\ell m+1$, the set of exponent pairs at which $p$ divides this expression is one coset of $L_p$. (Otherwise the set is empty; this happens exactly when $p\mid m$, or $p\nmid m$ and $-m^{-1}\notin H_p$.) The formula for $|H_p|$ in \eqref{eq:group} and the density condition $\sum 1/e_p\ge1$ for finite coverings were stated with proofs on the discussion thread of the problem \cite{Forum203}; both are elementary.
+
+A \emph{pure finite prime covering} is a finite family of such cosets, with at most one coset per distinct prime, whose union covers $\Z^2$. ``Pure'' means that only prime divisibility is used: no algebraic factorisations, such as those available when $m$ is a perfect power. Period $T$ means the least common multiple of the indices $e_p$ of the primes used. Only primes $p>3$ need to be considered. For $\gcd(m,6)=1$, the prime $2$ divides $2^k3^\ell m+1$ only when $k=0$, and $3$ only when $\ell=0$; so the cosets of primes $p>3$ must cover all pairs with $k,\ell\ge1$. Since the family is finite, all these cosets are invariant under translation by $T\Z^2$, so they then cover $\Z^2$. Hence, for such finite families, covering $\Z^2$, covering all nonnegative exponent pairs and covering all pairs with $k,\ell\ge1$ are equivalent. This formulation is a necessary condition for a divisibility-only covering construction, not a characterisation of all possible solutions of \eqref{eq:erdos}.
+
+Put $N=12\,252\,240=\lcm(1,\ldots,17)$, and
+\begin{equation}\label{eq:pool}
+  \PN=\{p>3\text{ prime}:e_p\mid N\}.
+\end{equation}
+
+\begin{theorem}\label{thm:main}
+No pure finite prime covering for Erd\H{o}s Problem \#203 has period dividing $N=12\,252\,240$.
+\end{theorem}
+
+The proof combines the slope-one line restriction developed in prior work \cite{ProblemADayOct14} with a new exact weighted certificate for this larger prime pool. It does not assert that no integer $m$ satisfying \eqref{eq:erdos} exists.
+
+\section{A finite line-projection obstruction}
+The following elementary fact is included for self-containment. The restriction of a coset cover to the cosets of a subgroup is classical \cite{Neumann54,Tomkinson87,Sun06}; our application uses it on lines of direction $(1,1)$, following \cite{ProblemADayOct14}.
+
+\begin{lemma}[Density on a slope-one line]\label{lem:lines}
+Let $p>3$ be prime, and set
+\[
+  h_p=\ord_p(6),\qquad i_p=e_p/h_p,\qquad d_p=\gcd(i_p,60).
+\]
+For each coset $C_p$ of $L_p$, there exists $a_p\pmod{i_p}$ such that, on the diagonal line $k-\ell=\tau$, the proportion of exponent pairs in $C_p$ is
+\[
+ \rho_p(\tau)=\begin{cases}i_p/e_p,&\tau\equiv a_p\pmod {i_p},\\0,&\text{otherwise}.
+ \end{cases}
+\]
+When these lines are pooled by $\tau\pmod {60}$, the mean proportion contributed by $p$ to class $t$ is
+\begin{equation}\label{eq:coarsened}
+  \overline\rho_p(t)=\begin{cases}
+  d_p/e_p,&t\equiv a_p\pmod{d_p},\\0,&\text{otherwise}.
+  \end{cases}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Every point with $k-\ell=\tau$ is of the form $(\tau+u,u)$; hence its image under $\phi_p$ is $2^\tau6^u$. The quotient $H_p/\langle6\rangle$ is cyclic of order $i_p$, generated by $2\langle6\rangle$, since $\langle2,3\rangle=\langle2,6\rangle$. Membership in a fixed coset of $L_p$ is therefore possible on precisely one class $\tau\equiv a_p\pmod{i_p}$. On such a line, exactly one $u$-class modulo $h_p$ satisfies it, yielding proportion $1/h_p=i_p/e_p$. Inside a fixed class $t\pmod {60}$, the congruence $\tau\equiv a_p\pmod {i_p}$ has relative density $d_p/i_p$ if $t\equiv a_p\pmod {d_p}$, and $0$ otherwise. Multiplying by $i_p/e_p$ proves \eqref{eq:coarsened}. All densities can equivalently be calculated on the finite torus $(\Z/N\Z)^2$, because the relevant orders divide $N$.
+\end{proof}
+
+If $5$ or $7$ does not occur in the covering, first add an arbitrary coset of $L_5$ (resp.\ $L_7$); this only enlarges the union, so a covering remains a covering, and the period still divides $N$. For $p=5$, $e_5=i_5=4$ and $d_5=4$; for $p=7$, $e_7=6$, $h_7=2$, $i_7=d_7=3$. A single global translation of the exponent lattice moves both selected residues $a_5\pmod4$ and $a_7\pmod3$ to $0$ simultaneously, by the Chinese remainder theorem. We may hence normalise
+\begin{equation}\label{eq:normalized}
+  a_5\equiv0\pmod4,\qquad a_7\equiv0\pmod3.
+\end{equation}
+This translation does not affect whether the cosets cover the exponent lattice.
+
+\begin{lemma}[Weighted line obstruction]\label{lem:weighted}
+Let $(\lambda_t)_{t\in\Z/60\Z}$ be nonnegative rational weights with $\sum_t\lambda_t=1$, supported on classes $t$ with $t\not\equiv0\pmod3$ and $t\not\equiv0\pmod4$. For each $d\mid60$ put
+\[
+  \mu_d=\max_{c\pmod d}\sum_{\substack{t\pmod{60}\\t\equiv c\ (d)}}\lambda_t,
+  \qquad R_d=\sum_{\substack{p\in\PN\setminus\{5,7\}\\d_p=d}}\frac1{e_p}.
+\]
+If
+\begin{equation}\label{eq:B}
+   B(\lambda):=\sum_{d\mid60}d\,\mu_dR_d<1,
+\end{equation}
+then the cosets of primes from $\PN$ cannot cover $\Z^2$.
+\end{lemma}
+\begin{proof}
+Suppose they cover. On each line $k-\ell=\tau$, the sum of coset densities is at least one by the union bound. The same is true after averaging over the lines $\tau\equiv t\pmod{60}$; this average is a finite average on the torus $(\Z/N\Z)^2$, as remarked at the end of the proof of Lemma~\ref{lem:lines}, because $60$ and every $e_p$ divide $N$. Take the weighted mean over $t$ using $\lambda_t$. The normalised primes $5,7$ contribute zero because the support avoids their classes in \eqref{eq:normalized}. By Lemma~\ref{lem:lines}, each other prime $p$ contributes at most $(d_p/e_p)\mu_{d_p}$, whatever residue $a_p$ it selects. Thus the weighted sum is both at least $1$ and at most $B(\lambda)$, contradicting \eqref{eq:B}.
+\end{proof}
+
+\section{Complete finite prime pool and exact certificate}
+The crucial finiteness reduction, the gcd method already used for complete pools in \cite{Forum203,ProblemADayOct12}, is
+\begin{equation}\label{eq:gcd}
+ p\in\PN\iff p\mid \gcd(2^N-1,3^N-1)=:G_N\qquad(p>3\text{ prime}).
+\end{equation}
+Indeed $e_p\mid N$ is equivalent to $2^N\equiv3^N\equiv1\pmod p$. A provided factorisation into primes is therefore \emph{complete} once the factors are proved prime and their product is checked to equal $G_N$.
+
+Our data contain $192$ distinct primes, the largest being $8\,168\,161$. Exactly $5,7,11,13,17$ have valuation $2$ in $G_N$; the remaining $187$ have valuation $1$. The full factor product has \textbf{2,432 bits and exactly 732 decimal digits}. The last number is corrected from the initial frozen report, which had used a GMP base-size estimate rather than the exact length of its decimal expansion. A GMP computation verifies the equality between the product and the directly calculated gcd, and a separate Python checker verifies primality and all multiplicative orders; both are part of the public verification package (Section~\ref{sec:verif}).
+
+Choose the explicit weights
+\begin{equation}\label{eq:weights}
+\lambda_t=\begin{cases}
+  1/20,&t\in\{1,26,41,46\},\\
+  1/10,&t\in\{2,5,7,10,14,19,23,58\},\\
+  0,&\text{otherwise}.
+\end{cases}
+\end{equation}
+They are nonnegative, sum to $1$, and vanish whenever $t\equiv0\pmod3$ or $t\equiv0\pmod4$.
+
+For transparency, Table~\ref{tab:certificate} displays the entire grouped exact-rational calculation. The last column is the contribution $N\,d\mu_dR_d$; the relevant nonzero values of $d$ are $1,2,3,4,5,6,10,12,15,20$.
+
+\begin{table}[htbp]
+\centering\small
+\caption{The exact weighted obstruction grouped by $d=\gcd(i_p,60)$ (excluding primes 5 and 7).}
+\label{tab:certificate}
+\begin{tabular}{@{}rccc@{}}\toprule
+$d$ & $\mu_d$ & $R_d$ & $N d\mu_d R_d$ \\\midrule
+1 & 1 & $319967/556920$ & 7,039,274 \\
+2 & $1/2$ & $53617/291720$ & 2,251,914 \\
+3 & $1/2$ & $120079/2042040$ & 1,080,711 \\
+4 & $1/2$ & $91723/4084080$ & 550,338 \\
+5 & $1/5$ & $92789/2450448$ & 463,945 \\
+6 & $1/4$ & $10343/875160$ & 217,203 \\
+10 & $1/10$ & $16/36465$ & 5,376 \\
+12 & $1/4$ & $181/32760$ & 203,082 \\
+15 & $1/10$ & $61/16380$ & 68,442 \\
+20 & $1/10$ & $1/4420$ & 5,544 \\\midrule
+\multicolumn{3}{r}{Total $NB$} & \textbf{11,885,829}\\
+\bottomrule\end{tabular}
+\end{table}
+
+In particular,
+\begin{equation}\label{eq:bound}
+\boxed{B=\frac{11\,885\,829}{12\,252\,240}
+=\frac{3\,961\,943}{4\,084\,080}<1,
+\qquad 1-B=\frac{122\,137}{4\,084\,080}.}
+\end{equation}
+This and Lemma~\ref{lem:weighted} prove that the full $N$-pool does not admit a pure covering.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+If a pure covering has period $T\mid N$, every one of its primes has $e_p\mid T$ and hence lies in $\PN$. The same nonnegative weights and the same bound for the \emph{full} pool apply, and deleting any primes cannot increase its upper bound. Equation~\eqref{eq:bound} is already below $1$. Consequently no such covering can exist.\qedhere
+\end{proof}
+
+The divisor-count refinement in the earlier experimental report is unnecessary for this argument: since $N=2^4 3^2\cdot5\cdot7\cdot11\cdot13\cdot17$, it has $5\cdot3\cdot2^5=480$ positive divisors, all covered at once by monotonicity. This does \emph{not} assert that each of these 480 periods is a previously unknown exclusion. Earlier work excluded every period up to $65\,520$ \cite{ProblemADayOct12} (with a second proof in \cite{ProblemADayOct14}) and, among other periods, every divisor of $720\,720=\lcm(1,\ldots,16)$ \cite{ProblemADayOct14}; its other divisor families, such as $110\,880$ and $332\,640$, contribute no further divisors of $N$. This covers $411$ of the $480$ divisors of $N$. The remaining $69$ divisors, from $67\,320$ up to $N$, are all multiples of $17$, and as far as we know none of them had been excluded before. For $T\mid N$ write $\mathcal P_T=\{p\in\PN:e_p\mid T\}$. Once these pools are known, most of the new periods need only the earlier tools (Table~\ref{tab:new}).
+
+\begin{table}[htbp]
+\centering\small
+\caption{The $69$ new divisors $T$ of $N$, by the weakest argument that suffices.}
+\label{tab:new}
+\begin{tabularx}{\linewidth}{@{}rX@{}}\toprule
+Number of periods & Weakest sufficient argument\\\midrule
+$50$ & the pool density $\sum_{p\in\mathcal P_T}1/e_p$ is below $1$\\
+$18$ & the 5--7 cut with uniform weights gives a bound below $1$ (largest bound $0.9092$, at $T=942\,480$)\\
+$1$ ($T=N$) & uniform weights fail; non-uniform weights such as \eqref{eq:weights} give a bound below $1$\\\bottomrule
+\end{tabularx}
+\end{table}
+
+Uniform weights $\lambda_t=1/30$ on the $30$ classes $t\pmod{60}$ with $3\nmid t$ and $4\nmid t$ (the set $S$ of Section~\ref{sec:opt}) give $B(\lambda)=1\,557\,209/1\,531\,530>1$ for the full $N$-pool, so within this cut non-uniform weights, such as \eqref{eq:weights}, are needed for $N$. The list of the $69$ periods is part of the verification package.
+
+\section{Optimality within the fixed weighted cut}\label{sec:opt}
+Finding the rational weights in \eqref{eq:weights} used computational optimisation, but the obstruction itself needs no optimiser. Here we can prove an additional, narrowly scoped fact.
+
+Let $S=\{t\pmod{60}:3\nmid t,\ 4\nmid t\}$, so $|S|=30$. Retain the primes $5,7$ normalised as above, the slope-one line direction and modulus $60$. Over all weights $\lambda_t\ge0$ supported on $S$, minimising $B(\lambda)$ is the linear program
+\begin{align}\label{eq:lp}
+ \text{minimise }&\sum_d dR_d z_d,\\[-2pt]
+ \text{subject to }&\sum_{t\in S}\lambda_t=1,\quad\lambda_t\ge0,\nonumber\\
+ &z_d\ge\sum_{\substack{t\in S\\t\equiv c\pmod d}}\lambda_t
+ \quad(\text{all }d\text{ with }R_d>0,\ c\pmod d).\nonumber
+\end{align}
+Its dual admits nonnegative rational values $q_{d,c}$ and a lower bound $L$ whenever
+\begin{equation}\label{eq:dual}
+ \sum_{c\pmod d}q_{d,c}\le dR_d\quad(\forall d),
+ \qquad\sum_d q_{d,t\bmod d}\ge L\quad(\forall t\in S).
+\end{equation}
+Indeed, multiplying the first constraints by primal variables or averaging the second ones against $\lambda$ shows $B(\lambda)\ge L$ for every admissible $\lambda$.
+
+\begin{proposition}[Optimality for the fixed cut]\label{prop:opt}
+For the line direction $(1,1)$, normalised 5--7 support and weights on $S\pmod{60}$, the minimum of $B(\lambda)$ equals $3\,961\,943/4\,084\,080$.
+\end{proposition}
+\begin{proof}
+The weights \eqref{eq:weights} give the upper bound in \eqref{eq:bound}. Appendix~\ref{app:dual} supplies an explicit sparse rational assignment $q_{d,c}$ satisfying \eqref{eq:dual} with $L=3\,961\,943/4\,084\,080$. Every inequality is checked using rational arithmetic in the companion verifier. Hence weak duality gives the matching lower bound.
+\end{proof}
+This claim of optimality is \emph{not} a claim of optimality among all possible directions, moduli or prime-covering obstructions.
+
+\section{Verification, prior work and limitations}\label{sec:verif}
+The verification package is archived at \href{https://doi.org/10.5281/zenodo.24050485}{doi:10.5281/zenodo.24050485} and available at \url{https://github.com/kosza123/erdos203-period-12252240}. It contains (i) the complete factor list of $G_N$ and the per-prime data, (ii) a standard-library-only checker of primality, orders, weights, the exact bound, the dual certificate and the divisors, (iii) a checker that recomputes $G_N$ from $2^N-1$ and $3^N-1$ with GMP and compares it with the factor list, (iv) a from-scratch check that starts from $N$ alone, finds the pool by brute force up to $3\cdot10^7$, proves completeness with GMP and verifies Lemma~\ref{lem:lines} by direct enumeration for all cosets of the $38$ pool primes with $e_p\le260$, (v) a script listing the $69$ new periods, and (vi) the outputs of the verifiers on Windows and Linux, with a dated record of every documented check. Integer arithmetic and exact fractions, rather than decimal approximations, determine every asserted inequality. The optimisation routine is not needed to rerun the proof.
+
+Within the author's AI-assisted workflow, the computation has also been reproduced by several separate implementations, written by separate Claude agent instances without access to the earlier checkers or to each other's code (described in \texttt{results/VERIFICATION.md}); they agree exactly on the pool (by direct gcd with GMP and with plain CPython integers, and, as a cross-check for primes below $2^{32}$, by a sieve), the per-prime data, the bound $B$ and the dual certificate. Erd\H{o}s Problem a Day (Patrick White and Claude), a separate project, reviewed the submission on which version~1.0 is based, recomputed the pool and the bound with its own PARI/GP and plain-Python code, obtaining results identical to ours, and reported the limited claim of Theorem~\ref{thm:main} as verified (private communication, 1~November 2026). These are checks of the computation and the argument; they are \emph{not} a substitute for professional mathematical peer review.
+
+The setup and the method come from earlier public work. On the discussion thread of the problem \cite{Forum203}, AnimishSharma stated and proved the formula for $|H_p|$ and the density condition $\sum1/e_p\ge1$ (both elementary) and used the latter to exclude all periods below $5040$ among primes up to $5\cdot10^7$; veljjanoski formulated the problem as a covering by cosets of lattices of index $e_p$ and computed complete prime pools through gcds of cyclotomic values (all primes with $e_p\le5000$). Erd\H{o}s Problem a Day excluded all periods up to $65\,520$ \cite{ProblemADayOct12}; its later entry \cite{ProblemADayOct14} introduced the weighted condition on lines and the slope-one 5--7 cut with uniform weights modulo $60$, gave a second proof for these periods and excluded, among others, all divisors of $720\,720$. It credits the underlying restriction of a coset cover to the cosets of a subgroup to B.~H.~Neumann \cite{Neumann54}, M.~J.~Tomkinson \cite{Tomkinson87} and Z.-W.~Sun \cite{Sun06}. The present computation extends the explicit obstruction to $N=\lcm(1,\ldots,17)$, which that account identified as the next frontier; what is new is the complete pool of $N$, from which the pools of the $69$ new divisors are read off (the pools of all periods up to $65\,520$ and of the divisors of $720\,720$ had already been computed \cite{Forum203,ProblemADayOct12,ProblemADayOct14}), and explicit non-uniform weights such as \eqref{eq:weights}. A preliminary literature search is \emph{not} a proof of exhaustive historical novelty. The mathematical argument above and the included exact verifiers are intended to stand on their own.
+
+The author used an AI-assisted research workflow, including SAPIO MORPHEUS/COMPLEX and ChatGPT, for algorithm design, computation, checking and preparation of version 1.0 of this draft. Version 1.1 was revised, and the verification package prepared and re-checked, with Claude (Anthropic) acting as a research operator under the author's direction. The separate implementations mentioned above were written by separate Claude agent instances, whose review also prompted most of the expository changes listed below. All mathematical claims are explicitly limited to the certified class and remain the author's responsibility. We claim neither a full solution to Erd\H{o}s \#203 nor any conclusion about non-pure or nonperiodic mechanisms.
+
+\section*{Acknowledgements}
+The author thanks Erd\H{o}s Problem a Day (Patrick White and Claude) for an independent check of the submission on which version~1.0 is based (1~November 2026) and for comments on its exposition and attribution, which are reflected in versions~1.0 and~1.1.
+
+\section*{Changes from version 1.0}
+Version 1.1 defines ``pure'' explicitly; states exactly when a prime contributes no coset; explains why only primes $p>3$ are needed, how an unused $5$ or $7$ is handled, and why the averaging over lines is finite; states which of the $480$ divisors of $N$ are new, with Table~\ref{tab:new} and the uniform-weight bound for $N$; credits the forum contributions, both earlier Erd\H{o}s Problem a Day entries and the classical lemma; describes the public verification package and the reproductions, including the check by Erd\H{o}s Problem a Day; updates the statement on AI use; adds acknowledgements; gives package paths in Appendix~\ref{app:dual}; and no longer calls the author's own checks ``independent''. The theorem, the weights, the bound and the dual certificate are unchanged.
+
+\begin{thebibliography}{99}\raggedright
+\bibitem{ErdosGraham} P.~Erd\H{o}s and R.~L.~Graham,
+\emph{Old and New Problems and Results in Combinatorial Number Theory},
+Monographie de L'Enseignement Math\'ematique 28, Universit\'e de Gen\`eve (1980), p.~27.
+\bibitem{Bloom203} T.~F.~Bloom (ed.), ``Erd\H{o}s Problem \#203,''
+\url{https://www.erdosproblems.com/203} (accessed 8 November 2026).
+\bibitem{Forum203} Erd\H{o}s Problems, ``203 Discussion Thread'' (contributions by AnimishSharma, 21 June 2026, and veljjanoski, 15 September 2026),
+\url{https://www.erdosproblems.com/forum/thread/203} (accessed 8 November 2026).
+\bibitem{ProblemADayOct12} Erd\H{o}s Problem a Day (Patrick White and Claude),
+``Erd\H{o}s \#203: the cosets of 5 and 7 always overlap --- no covering system has period $\le 65\,520$,'' 12 October 2026,
+\url{https://erdosproblemaday.com/day/203-no-covering-system-with-period-up-to-30000} (accessed 8 November 2026).
+\bibitem{ProblemADayOct14} Erd\H{o}s Problem a Day (Patrick White and Claude),
+``Erd\H{o}s \#203: along the lines of slope 1 the primes 5 and 7 leave half the lines to the rest of the pool,'' 14 October 2026,
+\url{https://erdosproblemaday.com/day/203-the-quotient-lemma-lines-close-the-open-pools} (accessed 8 November 2026).
+\bibitem{Neumann54} B.~H.~Neumann, Groups covered by finitely many cosets, \emph{Publ.\ Math.\ Debrecen} 3 (1954), 227--242.
+\bibitem{Tomkinson87} M.~J.~Tomkinson, Groups covered by finitely many cosets or subgroups, \emph{Comm.\ Algebra} 15 (1987), no.~4, 845 ff.
+\bibitem{Sun06} Z.-W.~Sun, Finite covers of groups by cosets or subgroups, \emph{Internat.\ J.\ Math.} 17 (2006), 1047--1064.
+\end{thebibliography}
+
+\appendix
+\section{An explicit dual certificate}\label{app:dual}
+For completeness, the following are the \emph{nonzero} entries $q_{d,c}$ of a feasible dual solution for \eqref{eq:dual}. Unlisted entries vanish. Set $L=3\,961\,943/4\,084\,080$. The companion file \nolinkurl{data/optional_lp_dual.json} and the Python standard-library script \nolinkurl{verify/verify_dual_stdlib.py} in the verification package check all $\sum_{c}q_{d,c}\le dR_d$ constraints and all 30 inequalities $\sum_dq_{d,t\bmod d}\ge L$ exactly, with no floating point operations.
+\vspace{0.2em}
+\begin{center}\small
+\begin{tabular}{@{}rrl@{\qquad\qquad}rrl@{}}\toprule
+$d$&$c$&$q_{d,c}$ & $d$&$c$&$q_{d,c}$ \\ \midrule
+1&0&$319967/556920$ & 10&0&$161/58344$ \\
+2&0&$16519/157080$ & 10&5&$95/58344$ \\
+2&1&$31523/120120$ & 12&10&$181/2730$ \\
+3&1&$27697/291720$ & 15&2&$61/5460$ \\
+3&2&$83179/1021020$ & 15&5&$61/5460$ \\
+4&2&$91723/1021020$ & 15&8&$61/5460$ \\
+5&0&$89597/2450448$ & 15&11&$61/5460$ \\
+5&1&$7199/188496$ & 15&14&$61/5460$ \\
+5&2&$7199/188496$ & 20&2&$1/884$ \\
+5&3&$7199/188496$ & 20&6&$1/884$ \\
+5&4&$7199/188496$ & 20&14&$1/884$ \\
+6&2&$28019/408408$ & 20&18&$1/884$ \\
+6&5&$1569/680680$ &  & &  \\
+\bottomrule\end{tabular}\end{center}
+\noindent Thus the proof of Proposition~\ref{prop:opt} can be checked by addition and comparison of explicit rational numbers. The main theorem does not depend on this proposition.
+
+\end{document}

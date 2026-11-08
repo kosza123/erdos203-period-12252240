@@ -1,14 +1,14 @@
 cff-version: 1.2.0
 message: "If you use this result, please cite it as below."
 title: "Erdős Problem #203: no pure finite prime covering with period dividing lcm(1,...,17) = 12,252,240"
-abstract: "A partial result on Erdős Problem #203: no pure finite prime covering has period dividing N = lcm(1,...,17) = 12,252,240. The complete prime pool of gcd(2^N-1, 3^N-1) has 192 primes. Using the slope-one line method and 5/7 cut of Erdős Problem a Day (P. White and Claude, 14 October 2026), explicit non-uniform weights modulo 60 give the exact bound 3961943/4084080 < 1. Of the 480 divisors of N, 411 had already been excluded by that earlier work; the 69 new periods are listed with a script that reproduces the list. Includes the research draft, the certificate data, three verifiers and the verification record. The full problem remains open; not peer reviewed."
+abstract: "A partial result on Erdős Problem #203: no pure finite prime covering has period dividing N = lcm(1,...,17) = 12,252,240. The complete prime pool of gcd(2^N-1, 3^N-1) has 192 primes. Using the slope-one line method and 5/7 cut of Erdős Problem a Day (P. White and Claude, 14 October 2026), explicit non-uniform weights modulo 60 give the exact bound 3961943/4084080 < 1. Of the 480 divisors of N, 411 had already been excluded by that earlier work; the 69 new periods are listed with a script that reproduces the list. Includes the research draft (v1.1, revised from v1.0), the certificate data, three verifiers and the verification record. The full problem remains open; not peer reviewed."
 type: dataset
 authors:
   - family-names: Majchrzak
     given-names: Filip
     affiliation: "Independent researcher, Poland"
 date-released: 2026-11-08
-version: "1.0.0"
+version: "1.1.0"
 license: CC-BY-4.0
 doi: 10.5281/zenodo.24050485
 identifiers:

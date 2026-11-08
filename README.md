@@ -103,6 +103,8 @@ Our outputs are in `results/`. `results/VERIFICATION.md` lists every check we ca
 
 | Path | What it is |
 |---|---|
+| `paper/Erdos203_Article_v1.1_2026-11-08.pdf` | The article, research draft v1.1 of 8 November 2026 (current version; see *Notes on the article*) |
+| `paper/erdos203_v1_1.tex` | LaTeX source of v1.1 (typeset with Tectonic) |
 | `paper/Erdos203_Article_Draft_2026-11-01.pdf` | The article, research draft v1.0 of 1 November 2026, unchanged (SHA-256 `fc77c1b9…3c661f`) |
 | `data/pool_factors.json` | The factorisation of G_N: 192 pairs [p, v] |
 | `data/pool_primes.csv` | For each pool prime: v, ord_p(2), ord_p(3), ord_p(6), e_p, i_p = e_p/ord_p(6), d_p = gcd(i_p, 60). A derived table for convenience; the verifiers recompute these values and do not read it. |
@@ -121,25 +123,30 @@ Our outputs are in `results/`. `results/VERIFICATION.md` lists every check we ca
 The setup and the method come from earlier public work:
 
 - **AnimishSharma**, on the [erdosproblems.com discussion thread for #203](https://www.erdosproblems.com/forum/thread/203)
-  (21 June 2026): the formula |H_p| = lcm(ord_p 2, ord_p 3) and the density condition Σ 1/e_p ≥ 1 for finite
-  coverings.
-- **veljjanoski**, on the same thread (15 September 2026; code at https://github.com/veljjanoski/erdos203): the
-  formulation as a covering by cosets of lattices of index e_p, and complete prime pools computed through gcds.
-- **Erdős Problem a Day** (Patrick White and Claude),
-  ["Erdős #203: along the lines of slope 1 the primes 5 and 7 leave half the lines to the rest of the pool"](https://erdosproblemaday.com/day/203-the-quotient-lemma-lines-close-the-open-pools),
-  14 October 2026: the weighted condition on lines, the slope-one 5/7 cut with uniform weights modulo 60, and the
-  exclusion of every period up to 65,520 and of every divisor of 720,720 = lcm(1,…,16). That post names the pool of
-  lcm(1,…,17) as the next frontier. It credits the underlying coset-restriction lemma to classical work
-  (B. H. Neumann 1954; Tomkinson; Z.-W. Sun).
+  (21 June 2026), stated and proved the formula |H_p| = lcm(ord_p 2, ord_p 3) and the density condition
+  Σ 1/e_p ≥ 1 for finite coverings, and used it to exclude all periods below 5040 among primes up to 5·10^7.
+- **veljjanoski**, on the same thread (15 September 2026; code at https://github.com/veljjanoski/erdos203),
+  formulated the problem as a covering by cosets of lattices of index e_p and computed complete prime pools through
+  gcds of cyclotomic values (all primes with e_p ≤ 5000).
+- **Erdős Problem a Day** (Patrick White and Claude) excluded every period up to 65,520 in
+  ["Erdős #203: the cosets of 5 and 7 always overlap"](https://erdosproblemaday.com/day/203-no-covering-system-with-period-up-to-30000)
+  (12 October 2026). Its later entry
+  ["Erdős #203: along the lines of slope 1 the primes 5 and 7 leave half the lines to the rest of the pool"](https://erdosproblemaday.com/day/203-the-quotient-lemma-lines-close-the-open-pools)
+  (14 October 2026) introduced the weighted condition on lines and the slope-one 5/7 cut with uniform weights
+  modulo 60, gave a second proof for these periods and excluded, among others, every divisor of
+  720,720 = lcm(1,…,16). It names the pool of lcm(1,…,17) as the next frontier and credits the underlying
+  coset-restriction lemma to classical work: B. H. Neumann, *Publ. Math. Debrecen* 3 (1954), 227–242;
+  M. J. Tomkinson, *Comm. Algebra* 15 (1987); Z.-W. Sun, *Internat. J. Math.* 17 (2006), 1047–1064.
 
 ## What is new
 
-The new ingredients are the complete prime pool of N = lcm(1,…,17), and with it the pools of all divisors of N, plus
-explicit non-uniform weights for N itself. Uniform weights give 1557209/1531530 > 1 for the N-pool, so they do not
-suffice there.
+The new ingredients are the complete prime pool of N = lcm(1,…,17), from which the pools of the 69 new divisors are
+read off (the pools of the 411 earlier periods had already been computed), plus explicit non-uniform weights for N
+itself. Uniform weights give 1557209/1531530 > 1 for the N-pool, so within this cut non-uniform weights are needed
+there; the article's weights are one such choice, not the only one.
 
-Of the 480 divisors of N, the post above already excluded 411: every period up to 65,520 and every divisor of
-720,720. The remaining 69 run from 67,320 up to N, and all of them are multiples of 17. As far as we know, none of
+Of the 480 divisors of N, Erdős Problem a Day had already excluded 411: every period up to 65,520 and every divisor
+of 720,720. The remaining 69 run from 67,320 up to N, and all of them are multiples of 17. As far as we know, none of
 them had been excluded before. They are listed in `results/NEW_PERIODS.csv`, which `verify/new_periods.py`
 reproduces. Once the pools are known, most of them need only the earlier tools:
 
@@ -147,13 +154,17 @@ reproduces. Once the pools are known, most of them need only the earlier tools:
 |---|---|
 | 50 | the pool density Σ 1/e_p is below 1 |
 | 18 | the 5/7 cut with uniform weights gives a bound below 1 (largest 0.9092, at 942,480) |
-| 1 (N itself) | only the non-uniform weights of the article give a bound below 1 |
+| 1 (N itself) | uniform weights fail; non-uniform weights, such as the article's, give a bound below 1 |
 
 A preliminary literature search is not a proof of historical novelty.
 
 ## Notes on the article
 
-The article is included exactly as written on 1 November 2026. On 8 November 2026 a separate Claude agent instance
+**Version 1.1** of the article (8 November 2026, `paper/Erdos203_Article_v1.1_2026-11-08.pdf`) incorporates the points
+below, the full attribution of *Prior work*, the list of new periods and a description of this package; its theorem,
+weights, bound and dual certificate are unchanged. The notes below refer to **version 1.0**, which is kept unchanged.
+
+Version 1.0 is included exactly as written on 1 November 2026. On 8 November 2026 a separate Claude agent instance
 was asked to look for errors. This was not a peer review; see `results/VERIFICATION.md`. It found no mathematical
 error, but noted three steps that the text leaves implicit:
 
@@ -192,7 +203,9 @@ unchanged, with its OpenAI Content Credentials (a C2PA manifest naming ChatGPT a
 2026-11-02 checkers were written by ChatGPT/Codex. This repository was prepared, and the result re-verified, with
 Claude (Anthropic) acting as a research operator under the author's direction. Three further from-scratch checks were
 written by separate Claude agent instances that did not use the existing verifier code (see
-`results/VERIFICATION.md`). No part of the COMPLEX system is needed to check the result, and none is included. The
+`results/VERIFICATION.md`). Version 1.1 of the article was revised with Claude under the author's direction and
+typeset with Tectonic from the LaTeX source in `paper/`. No part of the COMPLEX system is needed to check the result,
+and none is included. The
 author is responsible for the content.
 
 ## Citation
@@ -200,9 +213,10 @@ author is responsible for the content.
 If you use this result, please cite the archived record:
 
 > Majchrzak, F. (2026). *Erdős Problem #203: no pure finite prime covering with period dividing lcm(1,...,17) =
-> 12,252,240* (Version 1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24050485
+> 12,252,240* (Version 1.1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24050485
 
-The DOI above always resolves to the latest version; version 1.0.0 specifically is https://doi.org/10.5281/zenodo.24050486.
+The DOI above always resolves to the latest version; version 1.0.0 specifically is https://doi.org/10.5281/zenodo.24050486,
+and each later version has its own version DOI on the Zenodo record.
 GitHub's "Cite this repository" uses `CITATION.cff`.
 
 ## License

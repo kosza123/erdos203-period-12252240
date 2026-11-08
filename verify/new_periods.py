@@ -15,7 +15,7 @@ verify_pool_gmp.py):
   reason      the weakest argument that already excludes T:
                 density<1          the pool is too thin for any covering
                 uniform_weights    the 5/7 cut of the 14 October post with uniform weights gives B < 1
-                article_weights    only the non-uniform weights of the article give B < 1
+                article_weights    uniform weights fail; non-uniform weights such as the article's give B < 1
 Every new T is excluded by the theorem; the reason column only shows how much of the argument is needed.
 
 usage:  python3 verify/new_periods.py [--output NEW_PERIODS.csv]

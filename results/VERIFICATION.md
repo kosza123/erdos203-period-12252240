@@ -134,7 +134,24 @@ article's weights and with uniform weights; every article-weight bound is below 
 
 - 50 periods have pool density below 1;
 - 18 fall to uniform weights, with the largest bound 0.9092 at 942,480;
-- only N itself needs the non-uniform weights.
+- only N itself needs non-uniform weights: uniform weights fail, and the article's weights give a bound below 1.
+
+## 8 November 2026: comparison with the verification package of Erdős Problem a Day
+
+On 2 November 2026 Erdős Problem a Day sent the author, privately, the package behind its review of 1 November
+(`erdos203-lcm17-check.zip`, SHA-256 `829941186938964899070fed3126f4744a75a2013939b7ebf2f238db663a8a4a`, as stated in
+their message). It contains two routes written separately from the author's code, one in PARI/GP and one in plain
+Python, with their expected outputs. On 8 November its SHA-256 and the 30 internal checksums were confirmed, and
+its output files were compared with this package. Their code was read, not run. They agree exactly on:
+
+- G_N (decimal) and its complete factorisation (192 primes with valuations);
+- the pool found by their sieve up to 10^8;
+- v, ord_p(2), ord_p(3), e_p, ord_p(6), i_p and d_p for all 192 primes;
+- B = 3961943/4084080 in both routes;
+- the divisor counts of their review: 31 of the 480 divisors have pool density at least 1, and 18 proper divisors
+  with the factor 17 fall to uniform weights (largest 0.9092 at 942,480).
+
+The package is theirs to publish and is not reproduced here.
 
 ## 8 November 2026: pre-publication review of this package
 
