@@ -1,5 +1,7 @@
 # Erdős Problem #203: no pure finite prime covering with period dividing lcm(1,…,17) = 12,252,240
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24050485.svg)](https://doi.org/10.5281/zenodo.24050485)
+
 This repository contains a partial result on [Erdős Problem #203](https://www.erdosproblems.com/203), its exact
 certificate, three verifiers that anyone can run in seconds, and the list of the periods that are new.
 
@@ -195,8 +197,13 @@ author is responsible for the content.
 
 ## Citation
 
-If you use this result, please cite it via `CITATION.cff` (GitHub "Cite this repository"). A DOI will be added once
-the release is archived.
+If you use this result, please cite the archived record:
+
+> Majchrzak, F. (2026). *Erdős Problem #203: no pure finite prime covering with period dividing lcm(1,...,17) =
+> 12,252,240* (Version 1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24050485
+
+The DOI above always resolves to the latest version; version 1.0.0 specifically is https://doi.org/10.5281/zenodo.24050486.
+GitHub's "Cite this repository" uses `CITATION.cff`.
 
 ## License
 
